@@ -40,7 +40,7 @@ class ALLaM:
             **kwargs,
         )
 
-    def _format_messages(self, messages: List[Union[Dict[str, str], Any]]) -> List[BaseMessage]:
+    def _format_messages(self, messages: List[Union[Dict[str, str], BaseMessage]]) -> List[BaseMessage]:
         """
         Format input messages for the ALLaM model.
 
@@ -80,20 +80,20 @@ class ALLaM:
 
         return formatted_messages
 
-    def invoke(self, messages: List[Union[Dict[str, str], Any]]) -> AIMessage:
+    def invoke(self, messages: List[Union[Dict[str, str], BaseMessage]]) -> AIMessage:
         formatted_messages = self._format_messages(messages)
         return self.llm.invoke(formatted_messages)
 
-    async def ainvoke(self, messages: List[Union[Dict[str, str], Any]]) -> AIMessage:
+    async def ainvoke(self, messages: List[Union[Dict[str, str], BaseMessage]]) -> AIMessage:
         formatted_messages = self._format_messages(messages)
         return await self.llm.ainvoke(formatted_messages)
 
-    def stream(self, messages: List[Union[Dict[str, str], Any]]) -> AIMessageChunk:
+    def stream(self, messages: List[Union[Dict[str, str], BaseMessage]]) -> AIMessageChunk:
         formatted_messages = self._format_messages(messages)
         for chunk in self.llm.stream(formatted_messages):
             yield chunk
 
-    async def astream(self, messages: List[Union[Dict[str, str], Any]]) -> AIMessageChunk:
+    async def astream(self, messages: List[Union[Dict[str, str], BaseMessage]]) -> AIMessageChunk:
         formatted_messages = self._format_messages(messages)
         async for chunk in self.llm.astream(formatted_messages):
             yield chunk
