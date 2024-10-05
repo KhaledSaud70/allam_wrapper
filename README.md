@@ -1,6 +1,6 @@
 # ALLaM Class
 
-The ALLaM Class is a Python wrapper for interacting with the ALLaM-13B model using IBM Watsonx. This class provides an easy-to-use interface for sending correctly formatted prompts to the model and receiving responses.
+The ALLaM Class is a wrapper for interacting with the ALLaM-13B model using IBM Watsonx. This class provides an easy-to-use interface for sending correctly formatted prompts to the model and receiving responses.
 
 ## Requirements
 
