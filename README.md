@@ -35,8 +35,10 @@ The ALLaM Class is a Python wrapper for interacting with the ALLaM-13B model usi
 
 ```python
 from allam import ALLaM
+from langchain_core.messages import HumanMessage, SystemMessage
 
-allam = ALLaM()
+custom_params = {"temperature": 0.3, "max_new_tokens": 2000}
+allam = ALLaM(parameters=custom_params)
 
 # Prepare your messages
 messages = [
@@ -50,7 +52,6 @@ messages = [
         HumanMessage(content="User message content here."),
     ]
 
-# Get a response
 response = allam.invoke(messages)
 print(f"Response: {response.content}")
 print(f"Usage: {response.usage_metadata}")
@@ -63,7 +64,6 @@ messages.extend([{"role": "assistant", "content": response.content}])
 
 ```python
 # Stream the response
-print("Streaming response:")
 for chunk in allam.stream(messages):
     print(chunk.content, end="|", flush=True)
 ```
@@ -77,15 +77,5 @@ async def astream_response(messages):
     async for chunk in allam.astream(messages):
         print(chunk.content, end="|", flush=True)
 
-# Run the asynchronous function
 asyncio.run(astream_response(messages))
-```
-
-### Custom Parameters
-
-You can customize the model parameters by passing a dictionary when initializing the ALLaM class:
-
-```python
-custom_params = {"temperature": 0.3, "max_new_tokens": 2000}
-allam = ALLaM(parameters=custom_params)
 ```
